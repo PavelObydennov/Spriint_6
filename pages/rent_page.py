@@ -1,10 +1,11 @@
 import allure
+from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
-from ..locators.rent_page_locators import RentPageLocators
+from locators.rent_page_locators import RentPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-class RentPage:
+class RentPage(BasePage):
     def __init__(self, driver):
         self.driver = driver
 
@@ -21,7 +22,7 @@ class RentPage:
         date_field_for_bottom_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.date_delivery_of_scooter))
         date_field_for_bottom_button.click()
 
-        date_field_for_bottom_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.choose_first_date_delivery_of_scooter))
+        date_field_for_bottom_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.choose_second_date_delivery_of_scooter))
         date_field_for_bottom_button.click()
 
     @allure.step('Выбор срока аренды на сутки')
@@ -40,7 +41,7 @@ class RentPage:
         period_field_for_bottom_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.period_rental))
         period_field_for_bottom_button.click()
 
-        # Выбираем первый элемент из списка
+        # Выбираем третий элемент из списка
         first_option_day_three = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.day_three_period_rental))
         first_option_day_three.click()
 

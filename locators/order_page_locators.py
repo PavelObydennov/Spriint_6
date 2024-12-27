@@ -2,7 +2,6 @@
 from selenium.webdriver.common.by import By
 
 
-
 class OrderPageLocators:
 # Локаторы полей для ввода данных о пользователе.
     order_input_first_name = [By.XPATH, "//input[@placeholder='* Имя']"] # Поле Имя
@@ -14,5 +13,5 @@ class OrderPageLocators:
     order_input_number_phone = [By.XPATH, "//input[@placeholder='* Телефон: на него позвонит курьер']"] # Поле номер телефона
 
 # Локатор кнопки "далее" для оформления заказа.
-    order_page_locators_button_next = (By.XPATH,"//*[@id='root']/div/div[2]/div[3]/button")
+    order_page_locators_button_next = (By.XPATH, "//button[text()='Далее']")
 

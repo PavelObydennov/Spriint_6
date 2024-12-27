@@ -1,11 +1,12 @@
 import allure
 from selenium.webdriver.common.by import By
+from pages.base_page import BasePage
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from ..locators.order_page_locators import OrderPageLocators
+from locators.order_page_locators import OrderPageLocators
 
-class OrderPage:
+class OrderPage(BasePage):
     def __init__(self, driver: WebDriver):
         self.driver = driver
 
@@ -38,7 +39,7 @@ class OrderPage:
 
     @allure.step('Выбор первой станции метро из выпадающего списка')
     def select_metro_station_bottom_button(self):
-        # Выбирает первую станцию метро из выпадающего списка
+        # Выбираем 2 станцию метро из выпадающего списка
         metro_station_field_for_bottom_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(OrderPageLocators.order_input_metro_station))
         metro_station_field_for_bottom_button.click()
 

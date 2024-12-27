@@ -3,30 +3,30 @@ from selenium.webdriver.common.by import By
 class RentPageLocators:
 
 # Поле когда привезти самокат
-    date_delivery_of_scooter = [By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[1]/div/div/input']
+    date_delivery_of_scooter = (By.XPATH, "//input[@placeholder='* Когда привезти самокат']")
 
-# Выбираем 1ую дату 25.12.2025
-    choose_first_date_delivery_of_scooter = [By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[1]/div[2]/div[2]/div/div/div[2]/div[2]/div[5]/div[3]']
+# Выбираем  дату 25.12.2024
+    choose_first_date_delivery_of_scooter = (By.XPATH, "//div[contains(@class, 'react-datepicker__day') and text()='25']")
 
-# Выбираем 2ую дату 25.12.2025
-    choose_second_date_delivery_of_scooter = [By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[1]/div[2]/div[2]/div/div/div[2]/div[2]/div[5]/div[7]']
+# Выбираем дату 29.12.2024
+    choose_second_date_delivery_of_scooter = (By.XPATH, "//div[contains(@class, 'react-datepicker__day') and text()='29']")
 
 # Поле срок аренды
     period_rental = [By.CLASS_NAME, 'Dropdown-control']
 
 # Аренда на сутки
-    day_one_period_rental = [By.XPATH, "//*[@id='root']/div/div[2]/div[2]/div[2]/div[2]/div[1]"]
+    day_one_period_rental = (By.XPATH, "//div[@aria-selected='false' and text()='сутки']")
 
 # Аренда на 3 суток
-    day_three_period_rental = [By.XPATH, "//*[@id='root']/div/div[2]/div[2]/div[2]/div[2]/div[3]"]
+    day_three_period_rental = (By.XPATH, "//div[@aria-selected='false' and text()='трое суток']")
 
 # Кнопка Заказать
-    button_order = [By.XPATH, '//*[@id="root"]/div/div[2]/div[3]/button[2]']
+    button_order = (By.XPATH, "//div[@class='Order_Buttons__1xGrp']//button[text()='Заказать']")
 
 # Кнопка подтерждения заказа (да)
-    button_order_confirmation = [By.XPATH, '/html/body/div/div/div[2]/div[5]/div[2]/button[2]']
+    button_order_confirmation = (By.XPATH, "//button[text()='Да']")
 
 # Кнопка посмотреть статус
-    button_status = [By.XPATH, '//*[@id="root"]/div/div[2]/div[5]/div[2]/button']
+    button_status = (By.XPATH, "//button[text()='Посмотреть статус']")
 
-
+    rent_page_next_button = (By.CLASS_NAME, 'Button_Button__ra12g ')

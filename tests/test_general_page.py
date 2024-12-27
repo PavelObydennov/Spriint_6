@@ -1,14 +1,11 @@
 import pytest
 import allure
-from ..conftest import setup
-from ..pages.general_page import GeneralPage
+from conftest import driver
+from pages.base_page import BasePage
+from pages.general_page import GeneralPage
 from selenium.webdriver.support.ui import WebDriverWait
-from ..locators.general_page_locators import GeneralPageLocators
+from locators.general_page_locators import GeneralPageLocators
 from selenium.webdriver.support import expected_conditions as EC
-
-
-def scroll_to_bottom(driver):
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
 
 @pytest.mark.parametrize(
@@ -24,18 +21,15 @@ def scroll_to_bottom(driver):
         ('click_question_eight', GeneralPageLocators.answer_eight, 'Да, обязательно. Всем самокатов! И Москве, и Московской области.')
     ]
 )
-@allure.feature('Тесты на страницу с вопросами')
-@allure.story('Клик по вопросу и проверка ответа')
-def test_click_question(setup, question_method, answer_locator, expected_answer):
-    driver = setup
+@allure.title('Тест клика по вопросам и проверки ответов')
+def test_click_question(driver, question_method, answer_locator, expected_answer):
     general_page = GeneralPage(driver)
-
-    scroll_to_bottom(driver)
+    general_page.scroll_to_bottom()
 
     with allure.step(f'Клик по вопросу: {question_method}'):
         getattr(general_page, question_method)()
 
-    actually_settlement = WebDriverWait(driver, 10).until(EC.visibility_of_element_located(answer_locator)).text.strip()
+    actually_settlement = general_page.wait_for_element(answer_locator).text.strip()
 
     with allure.step('Проверка текста ответа'):
         assert expected_answer == actually_settlement

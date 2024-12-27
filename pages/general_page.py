@@ -1,12 +1,14 @@
 import allure
 from selenium.webdriver.common.by import By
+from pages.base_page import BasePage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from ..locators.general_page_locators import GeneralPageLocators
+from locators.general_page_locators import GeneralPageLocators
 
-class GeneralPage:
+class GeneralPage(BasePage):
     def __init__(self, driver):
         self.driver = driver
+        super().__init__(driver)
 
     @allure.step('Нажатие кнопки "Заказать" внизу страницы')
     def click_order_bottom_button(self):
@@ -14,9 +16,12 @@ class GeneralPage:
         button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(GeneralPageLocators.order_bottom_button))
         button.click()
 
+    def scroll_to_bottom(self):
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
     @allure.step('Нажатие на вопрос: {question_locator}')
     def click_question(self, question_locator):
-        # Нажимает на вопрос из выпадающего списка, указанный локатором.
+        # Нажимает на вопрос из выпадающего списка.
         question = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(question_locator))
         question.click()
 

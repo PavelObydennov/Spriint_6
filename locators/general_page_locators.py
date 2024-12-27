@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 
 class GeneralPageLocators:
     # Локатор нижней кнопки "Заказать"
-    order_bottom_button = (By.XPATH, '//*[@id="root"]/div/div/div[4]/div[2]/div[5]/button')
+    order_bottom_button = (By.XPATH, "//div[contains(@class, 'Home_FinishButton__1_cWm')]//button[text()='Заказать']")
 
     # Вопросы выпадающего списка в разделе «Вопросы о важном»
     question_one = (By.ID, 'accordion__heading-0')
