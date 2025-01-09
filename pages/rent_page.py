@@ -47,4 +47,16 @@ class RentPage(BasePage):
         if browser_name != "chrome":
             self.click_button_order_confirmation()
 
+    def wait_and_select_date(self, field_locator, date_locator, timeout=10):
+        self.wait_and_click(field_locator, timeout)
+        self.wait_and_click(date_locator, timeout)
+
+    def wait_and_click(self, locator, timeout=10):
+        self.wait_for(EC.element_to_be_clickable(locator), timeout).click()
+
+    def wait_and_select_from_list(self, field_locator, option_locator, timeout=10):
+        self.wait_and_click(field_locator, timeout)
+        self.wait_and_click(option_locator, timeout)
+
+
 

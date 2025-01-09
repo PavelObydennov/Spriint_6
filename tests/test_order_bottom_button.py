@@ -18,10 +18,9 @@ class TestOrderFormBottomButton:
         general_page = GeneralPage(driver)
         order_page = OrderPage(driver)
         rent_page = RentPage(driver)
-        base_page = BasePage(driver)
 
         # Прокрутка страницы до середины и нажатие кнопки "Заказать"
-        base_page.scroll_to_middle()
+        general_page.scroll_to_middle()
         general_page.click_order_bottom_and_wait_for_form()
 
         # Получаем тестовые данные
@@ -35,7 +34,7 @@ class TestOrderFormBottomButton:
         order_page.fill_order_form(first_name, last_name, address, phone_number)
 
         # Ожидаем загрузки страницы аренды
-        base_page.wait_for_rent_page_load()
+        general_page.wait_for_rent_page_load()
 
         # Заполняем форму аренды по дате
         rent_page.fill_date_delivery_of_scooter_for_bottom_button()
@@ -46,27 +45,27 @@ class TestOrderFormBottomButton:
         # Обрабатываем заказ
         rent_page.click_button_order()
 
-        # Проверка открытие окна
-        base_page.check_confirmation_window(driver)
+        # Проверка открытия окна
+        rent_page.check_confirmation_window()
 
-        # Нажимаем да
+        # Нажимаем "Да"
         rent_page.click_button_order_confirmation()
 
-        # Нажимаем на кнопку посмотреть статус
+        # Нажимаем на кнопку "Посмотреть статус"
         rent_page.click_button_status()
 
         # Проверяем статус заказа
-        base_page.check_order_status()
+        general_page.check_order_status()
 
         # Клик на логотип самоката
-        base_page.click_logo_scooter()
+        general_page.click_logo_scooter()
 
         # Проверяем текст после клика на логотип самоката
-        base_page.check_scooter_logo_text()
+        general_page.check_scooter_logo_text()
 
         # Проверяем URL новой вкладки после клика на логотип Яндекса
         general_page.click_logo_yandex()
-        base_page.check_new_tab_url(driver, url_dzen)
+        general_page.check_new_tab_url(url_dzen)
 
 
 

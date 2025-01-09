@@ -5,15 +5,36 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from locators.general_page_locators import GeneralPageLocators
 from locators.base_page_locators import BasePageLocators
+from locators.rent_page_locators import RentPageLocators
 from data.urls import url_dzen, base_url
 
 class GeneralPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
+    @allure.step("Прокрутка страницы на заданную высоту")
+    def scroll_to(self, y_position):
+        self.driver.execute_script(f"window.scrollTo(0, {y_position});")
+
+    @allure.step('Клик по кнопке "Заказать" сверху')
+    def click_order_top_button(self):
+        self.wait_for(EC.element_to_be_clickable(BasePageLocators.order_top_button)).click()
+
     @allure.step('Нажатие кнопки "Заказать" внизу страницы')
     def click_order_bottom_button(self):
         self.wait_and_click(GeneralPageLocators.order_bottom_button)
+
+    @allure.step('Клик по логотипу Самоката')
+    def click_logo_scooter(self):
+        self.wait_for(EC.element_to_be_clickable(BasePageLocators.logo_scooter)).click()
+
+    @allure.step('Клик по логотипу Яндекса')
+    def click_logo_yandex(self):
+        self.wait_for(EC.element_to_be_clickable(BasePageLocators.logo_Yandex)).click()
+
+    @allure.step("Ожидание загрузки страницы аренды")
+    def wait_for_rent_page_load(self, timeout=10):
+        self.wait_for_element_visibility(RentPageLocators.rent_page_next_button, timeout)
 
     @allure.step('Нажимаем нижнюю кнопку "Заказать" на главной странице')
     def click_order_bottom_and_wait_for_form(self):
@@ -35,34 +56,27 @@ class GeneralPage(BasePage):
     def click_question(self, question_locator):
         self.wait_and_click(question_locator)
 
-    @allure.step('Нажатие на первый вопрос')
-    def click_question_one(self):  # 1
-        self.wait_and_click(GeneralPageLocators.question_one)
+    @allure.step('Проверяем статус заказа')
+    def check_order_status(self):
+        self.wait_for_element_visibility(BasePageLocators.check_locator_two)
 
-    @allure.step('Нажатие на второй вопрос')
-    def click_question_two(self):  # 2
-        self.wait_and_click(GeneralPageLocators.question_two)
+        order_status = self.wait_for_element_visibility(BasePageLocators.check_locator_two).text.strip()
+        expected_status = 'Отменить заказ'
 
-    @allure.step('Нажатие на третий вопрос')
-    def click_question_three(self):  # 3
-        self.wait_and_click(GeneralPageLocators.question_three)
+        assert order_status == expected_status
 
-    @allure.step('Нажатие на четвертый вопрос')
-    def click_question_four(self):  # 4
-        self.wait_and_click(GeneralPageLocators.question_four)
+    @allure.step("Прокрутка страницы до середины")
+    def scroll_to_middle(self):
+        total_height = self.driver.execute_script("return document.body.scrollHeight")
+        self.scroll_to(total_height * 2 // 3)
 
-    @allure.step('Нажатие на пятый вопрос')
-    def click_question_five(self):  # 5
-        self.wait_and_click(GeneralPageLocators.question_five)
+    @allure.step("Прокрутка страницы до низа")
+    def scroll_to_bottom(self):
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-    @allure.step('Нажатие на шестой вопрос')
-    def click_question_six(self):  # 6
-        self.wait_and_click(GeneralPageLocators.question_six)
+    def wait_and_click(self, locator, timeout=10):
+        self.wait_for(EC.element_to_be_clickable(locator), timeout).click()
 
-    @allure.step('Нажатие на седьмой вопрос')
-    def click_question_seven(self):  # 7
-        self.wait_and_click(GeneralPageLocators.question_seven)
-
-    @allure.step('Нажатие на восьмой вопрос')
-    def click_question_eight(self):  # 8
-        self.wait_and_click(GeneralPageLocators.question_eight)
+    def get_element_text(self, locator):
+        element = self.wait_for_element_visibility(locator)
+        return element.text

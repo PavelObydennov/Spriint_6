@@ -47,3 +47,15 @@ class OrderPage(BasePage):
         self.select_metro_station_bottom_button()
         self.fill_phone_number(phone_number)
         self.click_next_button()
+
+    def wait_and_click(self, locator, timeout=10):
+        self.wait_for(EC.element_to_be_clickable(locator), timeout).click()
+
+    def wait_and_select(self, locator_to_click, locator_to_select, timeout=10):
+        self.wait_and_click(locator_to_click, timeout)
+        self.wait_and_click(locator_to_select, timeout)
+
+    def wait_and_fill(self, locator, value, timeout=10):
+        field = self.wait_for(EC.presence_of_element_located(locator), timeout)
+        field.clear()
+        field.send_keys(value)
