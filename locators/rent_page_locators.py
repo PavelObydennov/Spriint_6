@@ -1,15 +1,17 @@
+# Здесь локаторы для второй формы заполнения
 from selenium.webdriver.common.by import By
+
 
 class RentPageLocators:
 
 # Поле когда привезти самокат
     date_delivery_of_scooter = (By.XPATH, "//input[@placeholder='* Когда привезти самокат']")
 
-# Выбираем  дату 25.12.2024
-    choose_first_date_delivery_of_scooter = (By.XPATH, "//div[contains(@class, 'react-datepicker__day') and text()='25']")
+# Выбираем  дату 16.01.2025
+    choose_first_date_delivery_of_scooter = (By.XPATH, "//div[contains(@class, 'react-datepicker__day') and text()='16']")
 
-# Выбираем дату 29.12.2024
-    choose_second_date_delivery_of_scooter = (By.XPATH, "//div[contains(@class, 'react-datepicker__day') and text()='29']")
+# Выбираем дату 17.01.2025
+    choose_second_date_delivery_of_scooter = (By.XPATH, "//div[contains(@class, 'react-datepicker__day') and text()='17']")
 
 # Поле срок аренды
     period_rental = [By.CLASS_NAME, 'Dropdown-control']

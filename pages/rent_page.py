@@ -4,58 +4,47 @@ from selenium.webdriver.common.by import By
 from locators.rent_page_locators import RentPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from data.urls import url_dzen, base_url
 
 class RentPage(BasePage):
     def __init__(self, driver):
-        self.driver = driver
+        super().__init__(driver)
 
-    @allure.step('Выбор даты доставки самоката на 25 декабря 2024')
+    @allure.step('Выбор даты доставки самоката на 16 января 2025')
     def fill_date_delivery_of_scooter_for_top_button(self):
-        date_field_for_top_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.date_delivery_of_scooter))
-        date_field_for_top_button.click()
+        self.wait_and_select_date(RentPageLocators.date_delivery_of_scooter, RentPageLocators.choose_first_date_delivery_of_scooter)
 
-        date_field_for_top_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.choose_first_date_delivery_of_scooter))
-        date_field_for_top_button.click()
-
-    @allure.step('Выбор даты доставки самоката на 1 января 2025')
+    @allure.step('Выбор даты доставки самоката на 17 января 2025')
     def fill_date_delivery_of_scooter_for_bottom_button(self):
-        date_field_for_bottom_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.date_delivery_of_scooter))
-        date_field_for_bottom_button.click()
-
-        date_field_for_bottom_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.choose_second_date_delivery_of_scooter))
-        date_field_for_bottom_button.click()
+        self.wait_and_select_date(RentPageLocators.date_delivery_of_scooter, RentPageLocators.choose_second_date_delivery_of_scooter)
 
     @allure.step('Выбор срока аренды на сутки')
     def click_period_rental_for_top_button(self):
-        # Кликаем по полю срока аренды
-        period_field_for_top_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.period_rental))
-        period_field_for_top_button.click()
+        self.wait_and_select_from_list(RentPageLocators.period_rental, RentPageLocators.day_one_period_rental)
 
-        # Выбираем первый элемент из списка
-        first_option_day_one = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.day_one_period_rental))
-        first_option_day_one.click()
-
-    @allure.step('Выбор срока аренды на 3ое суток')
+    @allure.step('Выбор срока аренды на трое суток')
     def click_period_rental_for_bottom_button(self):
-        # Кликаем по полю срока аренды
-        period_field_for_bottom_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.period_rental))
-        period_field_for_bottom_button.click()
-
-        # Выбираем третий элемент из списка
-        first_option_day_three = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.day_three_period_rental))
-        first_option_day_three.click()
+        self.wait_and_select_from_list(RentPageLocators.period_rental, RentPageLocators.day_three_period_rental)
 
     @allure.step('Нажатие на кнопку "Заказать"')
     def click_button_order(self):
-        order_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.button_order))
-        order_button.click()
+        self.wait_and_click(RentPageLocators.button_order)
 
     @allure.step('Подтверждение заказа: Нажатие на кнопку "Да"')
     def click_button_order_confirmation(self):
-        confirm_button = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.button_order_confirmation))
-        confirm_button.click()
+        self.wait_and_click(RentPageLocators.button_order_confirmation)
+
 
     @allure.step('Просмотр статуса заказа: Нажатие на кнопку "Статус"')
     def click_button_status(self):
-        look_status = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(RentPageLocators.button_status))
-        look_status.click()
+        self.wait_and_click(RentPageLocators.button_status)
+
+
+    @allure.step('Обрабатываем заказ с подтверждением')
+    def process_order(self, driver):
+        self.click_button_order()
+        browser_name = driver.capabilities['browserName'].lower()
+        if browser_name != "chrome":
+            self.click_button_order_confirmation()
+
+

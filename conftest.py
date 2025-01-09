@@ -1,4 +1,4 @@
-# # Здесь хранятся фикстуры
+# Здесь хранятся фикстуры
 import pytest
 from selenium import webdriver
 from data.urls import base_url
@@ -11,7 +11,6 @@ def driver(request):
         driver = webdriver.Chrome()
     else:
         raise ValueError('Unknown browser type')
-    # driver.maximize_window()
     driver.get(base_url)
     yield driver
     driver.quit()
