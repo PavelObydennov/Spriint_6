@@ -33,9 +33,6 @@ class TestOrderFormBottomButton:
         # Заполняем форму заказа
         order_page.fill_order_form(first_name, last_name, address, phone_number)
 
-        # Ожидаем загрузки страницы аренды
-        general_page.wait_for_rent_page_load()
-
         # Заполняем форму аренды по дате
         rent_page.fill_date_delivery_of_scooter_for_bottom_button()
 
